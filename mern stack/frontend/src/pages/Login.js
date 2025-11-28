@@ -80,11 +80,9 @@ const LoginPage = () => {
         </div>
         
         <div className="login-footer">
-          <p className="feature-list">
-            ✓ OAuth secure authentication<br/>
-            ✓ Dynamic form generation<br/>
-            ✓ Real-time data sync
-          </p>
+          <div style={{ fontSize: '14px' }}>
+            <a href="/terms-of-service">Terms of Service</a> | <a href="/privacy-policy">Privacy Policy</a>
+          </div>
         </div>
       </div>
     </div>

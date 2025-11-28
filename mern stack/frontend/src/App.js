@@ -8,6 +8,8 @@ import FormViewerPage from './pages/FormViewer';
 import ResponsesPage from './pages/ResponseList';
 import AuthCallbackPage from './pages/AuthCallback';
 import NavigationBar from './components/Navbar';
+import TermsPage from './pages/Terms';
+import PrivacyPage from './pages/Privacy';
 
 const apiBase = process.env.REACT_APP_API_BASE_URL;
 if (apiBase) {
@@ -119,6 +121,16 @@ const FormBuilderApp = () => {
             <Route 
               path="/form/:formId" 
               element={<FormViewerPage />} 
+            />
+
+            <Route 
+              path="/terms-of-service" 
+              element={<TermsPage />} 
+            />
+
+            <Route 
+              path="/privacy-policy" 
+              element={<PrivacyPage />} 
             />
             
             <Route 
