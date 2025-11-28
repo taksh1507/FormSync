@@ -2,6 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import axios from 'axios';
 
+const apiBase = process.env.REACT_APP_API_BASE_URL;
+if (apiBase) {
+  axios.defaults.baseURL = apiBase;
+} else {
+  const isProd = window.location.hostname !== 'localhost';
+  if (isProd) {
+    axios.defaults.baseURL = 'https://formsync-73z5.onrender.com';
+  }
+}
+axios.defaults.withCredentials = true;
+
 import LoginPage from './pages/Login';
 import DashboardPage from './pages/Dashboard';
 import FormBuilderPage from './pages/FormBuilder';
@@ -56,7 +67,7 @@ const FormBuilderApp = () => {
         {currentUser && (
           <NavigationBar 
             user={currentUser} 
-            setUser={setCurrentUser} 
+            onUserChange={setCurrentUser} 
           />
         )}
         

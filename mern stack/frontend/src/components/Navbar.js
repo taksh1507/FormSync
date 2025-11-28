@@ -25,7 +25,7 @@ function Navbar({ user, setUser }) {
         
         <div className="navbar-links">
           <Link to="/dashboard">Dashboard</Link>
-          <Link to="/forms/create">Create Form</Link>
+          <Link to="/forms/new">Create Form</Link>
           <span className="navbar-user">{user?.email}</span>
           <button onClick={handleLogout} className="logout-btn">
             Logout

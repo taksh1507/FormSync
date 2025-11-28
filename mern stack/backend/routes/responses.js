@@ -3,7 +3,6 @@ const router = express.Router();
 const Response = require('../models/Response');
 const Form = require('../models/Form');
 const axios = require('axios');
-const { airtableRequest } = require('../utils/airtableClient');
 const { isFieldVisible } = require('../utils/conditionalLogic');
 
 router.post('/submit', async (req, res) => {
@@ -14,7 +13,7 @@ router.post('/submit', async (req, res) => {
       return res.status(400).json({ error: 'Missing data' });
     }
 
-    const form = await Form.findById(formId).populate({ path: 'formOwner', select: '+refreshToken' });
+    const form = await Form.findById(formId).populate('formOwner');
     if (!form) {
       return res.status(404).json({ error: 'Form not found' });
     }
@@ -27,12 +26,16 @@ router.post('/submit', async (req, res) => {
     const user = form.formOwner;
     const airtableFields = transformAnswersForAirtable(form, answers);
 
-    const airtableResponse = await airtableRequest(user, {
-      method: 'post',
-      url: `https://api.airtable.com/v0/${form.connectedBaseId}/${form.connectedTableId}`,
-      data: { fields: airtableFields },
-      headers: { 'Content-Type': 'application/json' }
-    });
+    const airtableResponse = await axios.post(
+      `https://api.airtable.com/v0/${form.connectedBaseId}/${form.connectedTableId}`,
+      { fields: airtableFields },
+      {
+        headers: {
+          'Authorization': `Bearer ${user.accessToken}`,
+          'Content-Type': 'application/json'
+        }
+      }
+    );
 
     const airtableRecord = airtableResponse.data;
 
@@ -131,16 +134,7 @@ function transformAnswersForAirtable(form, answers) {
   for (let field of form.formFields) {
     const answer = answers[field.fieldKey];
     if (answer !== undefined && answer !== null && answer !== '') {
-      if (field.fieldType === 'multipleAttachments') {
-        const urls = Array.isArray(answer) ? answer : [answer];
-        const attachments = urls
-          .map(u => String(u).trim())
-          .filter(u => u)
-          .map(u => ({ url: u }));
-        fields[field.airtableFieldId] = attachments;
-      } else {
-        fields[field.airtableFieldId] = answer;
-      }
+      fields[field.airtableFieldId] = answer;
     }
   }
 

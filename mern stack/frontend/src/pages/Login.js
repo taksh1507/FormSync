@@ -16,7 +16,7 @@ const LoginPage = () => {
       setIsLoading(true);
       setError('');
       
-      const response = await axios.get('/api/auth/airtable');
+      const response = await axios.get('/api/auth/airtable', { withCredentials: true });
       
       if (response.data?.authUrl) {
         setOauthUrl(response.data.authUrl);

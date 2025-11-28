@@ -37,42 +37,6 @@ router.post('/airtable', async (req, res) => {
 });
 
 async function handleCreatedRecords(records, tableId) {
-  try {
-    const forms = await Form.find({ connectedTableId: tableId });
-    if (!forms || forms.length === 0) return;
-
-    for (let recordId in records) {
-      const existing = await Response.findOne({ airtableRecordId: recordId });
-      if (existing) continue;
-
-      const record = records[recordId];
-      for (const form of forms) {
-        const answers = {};
-        if (record && record.cellValuesByFieldId && Array.isArray(form.formFields)) {
-          for (let field of form.formFields) {
-            const value = record.cellValuesByFieldId[field.airtableFieldId];
-            if (value !== undefined) {
-              answers[field.fieldKey] = value;
-            }
-          }
-        }
-        const resp = new Response({
-          parentForm: form._id,
-          airtableRecordId: recordId,
-          fieldResponses: answers,
-          syncStatus: 'synced'
-        });
-        try {
-          await resp.save();
-          break;
-        } catch (e) {
-          continue;
-        }
-      }
-    }
-  } catch (error) {
-    console.error('Error handling created records:', error);
-  }
 }
 
 async function handleChangedRecords(records, tableId) {

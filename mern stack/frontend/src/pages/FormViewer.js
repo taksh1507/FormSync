@@ -251,18 +251,12 @@ function FormViewer() {
                 )}
 
                 {fieldType === 'multipleAttachments' && (
-                  <textarea
-                    value={(answers[fieldKey] || []).join('\n')}
+                  <input
+                    type="file"
+                    multiple
                     onChange={(e) => {
-                      const raw = e.target.value || '';
-                      const urls = raw
-                        .split(/\n|,/)
-                        .map(s => s.trim())
-                        .filter(Boolean);
-                      handleChange(fieldKey, urls);
+                      console.log('File upload not fully implemented');
                     }}
-                    rows="3"
-                    placeholder="Enter one or more public file URLs"
                   />
                 )}
 

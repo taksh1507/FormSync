@@ -17,18 +17,18 @@ server.use(cors(corsConfig));
 server.use(express.json({ limit: '10mb' }));
 server.use(express.urlencoded({ extended: false }));
 
-const sessionConfig = {
-  secret: process.env.SESSION_SECRET || 'dev-secret-change-in-prod',
-  resave: false,
-  saveUninitialized: false,
-  cookie: { 
+  const sessionConfig = {
+    secret: process.env.SESSION_SECRET || 'dev-secret-change-in-prod',
+    resave: false,
+    saveUninitialized: false,
+    cookie: { 
     secure: process.env.NODE_ENV === 'production',
     httpOnly: true,
     maxAge: 1000 * 60 * 60 * 24,
-    sameSite: 'lax'
-  },
-  name: 'formbuilder.session'
-};
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
+    },
+    name: 'formbuilder.session'
+  };
 server.use(session(sessionConfig));
 
 const connectDB = async () => {
