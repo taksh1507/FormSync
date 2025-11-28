@@ -19,9 +19,10 @@ function AuthCallback({ setUser }) {
   const handleCallback = async () => {
     const code = searchParams.get('code');
     const state = searchParams.get('state');
+    const errorParam = searchParams.get('error') || searchParams.get('error_description');
     
     if (!code) {
-      setError('No code found');
+      setError(errorParam || 'No code found');
       setLoading(false);
       return;
     }

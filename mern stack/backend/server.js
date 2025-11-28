@@ -5,6 +5,7 @@ const cors = require('cors');
 const session = require('express-session');
 
 const server = express();
+server.set('trust proxy', 1);
 
 const corsConfig = {
   origin: process.env.FRONTEND_URL || 'http://localhost:3000',
