@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: form-builder-api
+    env: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: AIRTABLE_CLIENT_ID
+        sync: false
+      - key: AIRTABLE_CLIENT_SECRET
+        sync: false
+      - key: AIRTABLE_REDIRECT_URI
+        sync: false
+      - key: WEBHOOK_BASE_URL
+        sync: false
+

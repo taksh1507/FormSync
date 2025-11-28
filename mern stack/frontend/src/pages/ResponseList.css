@@ -1,0 +1,81 @@
+.response-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 30px;
+}
+
+.response-header h1 {
+  font-size: 28px;
+  color: #1f2937;
+  margin-bottom: 5px;
+}
+
+.response-count {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.btn-back {
+  background: #6b7280;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.responses-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.response-card {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.response-meta {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.response-id {
+  font-family: monospace;
+  background: #f3f4f6;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.response-date {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.response-answers {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.answer-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.answer-item strong {
+  color: #374151;
+  font-size: 14px;
+}
+
+.answer-item span {
+  color: #1f2937;
+  font-size: 15px;
+}
