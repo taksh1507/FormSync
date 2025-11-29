@@ -1,15 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import axios from 'axios';
-import LoginPage from './pages/Login';
-import DashboardPage from './pages/Dashboard';
-import FormBuilderPage from './pages/FormBuilder';
-import FormViewerPage from './pages/FormViewer';
-import ResponsesPage from './pages/ResponseList';
-import AuthCallbackPage from './pages/AuthCallback';
-import NavigationBar from './components/Navbar';
-import TermsPage from './pages/Terms';
-import PrivacyPage from './pages/Privacy';
 
 const apiBase = process.env.REACT_APP_API_BASE_URL;
 if (apiBase) {
@@ -21,6 +12,14 @@ if (apiBase) {
   }
 }
 axios.defaults.withCredentials = true;
+
+import LoginPage from './pages/Login';
+import DashboardPage from './pages/Dashboard';
+import FormBuilderPage from './pages/FormBuilder';
+import FormViewerPage from './pages/FormViewer';
+import ResponsesPage from './pages/ResponseList';
+import AuthCallbackPage from './pages/AuthCallback';
+import NavigationBar from './components/Navbar';
 
 const FormBuilderApp = () => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -121,16 +120,6 @@ const FormBuilderApp = () => {
             <Route 
               path="/form/:formId" 
               element={<FormViewerPage />} 
-            />
-
-            <Route 
-              path="/terms-of-service" 
-              element={<TermsPage />} 
-            />
-
-            <Route 
-              path="/privacy-policy" 
-              element={<PrivacyPage />} 
             />
             
             <Route 
